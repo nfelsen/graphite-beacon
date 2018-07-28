@@ -19,7 +19,7 @@ install_requires = [
     l for l in _read('requirements.txt').split('\n') if l and not l.startswith('#')]
 
 setup(
-    name='graphite_beacon',
+    name='graphite_beacon_opsgenie_v2',
     version=_version,
     license=_license,
     description=_read('DESCRIPTION'),
@@ -29,7 +29,7 @@ setup(
 
     author='Kirill Klenov',
     author_email='horneds@gmail.com',
-    url='http://github.com/klen/graphite-beacon',
+    url='http://github.com/nfelsen/graphite-beacon',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',

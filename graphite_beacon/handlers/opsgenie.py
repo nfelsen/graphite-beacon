@@ -30,18 +30,19 @@ class OpsgenieHandler(AbstractHandler):
 
         if level == 'critical':
             yield self.client.fetch(
-                'https://api.opsgenie.com/v1/json/alert',
+                'https://api.opsgenie.com/v2/alerts',
                 method='POST',
-                headers={'Content-Type': 'application/json'},
+                headers={"Content-Type": "application/json", "Authorization": "GenieKey {}".format(self.api_key)},
                 body=json.dumps({'apiKey': self.api_key,
                                  'message': message,
                                  'alias': alias,
                                  'description': description}))
+
         elif level == 'normal':
             # Close issue
             yield self.client.fetch(
-                'https://api.opsgenie.com/v1/json/alert/close',
+                'https://api.opsgenie.com/v2/alerts/{}/close?identifierType=alias'.format(alias),
                 method='POST',
-                headers={'Content-Type': 'application/json'},
-                body=json.dumps({'apiKey': self.api_key, 'alias': alias}))
+                headers={"Content-Type": "application/json", "Authorization": "GenieKey {}".format(self.api_key)},
+                body=json.dumps({'note': 'closed automatically'}))
         # TODO: Maybe add option to create alert when level == 'warning'?
